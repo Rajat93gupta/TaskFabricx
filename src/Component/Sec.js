@@ -31,10 +31,10 @@ function Sec() {
             console.log('hello')
         }, []);
 
-        return () => {
-            canvas.current.dispose();
-            canvas.current = null;
-        };
+        // return () => {
+        //     canvas.current.dispose();
+        //     canvas.current = null;
+        // };
     }, []);
 
     const initCanvas = () => (
@@ -102,7 +102,7 @@ function Sec() {
             fill: 'red'
         }))
     }
-    function convertToImg(e) {
+    const convertToImg=()=> {
         console.log("click");
           const svg = canvas.current.toSVG();
           console.log(svg);
@@ -113,19 +113,7 @@ function Sec() {
         setDownloadName("canvas.png");
     }
     
-    const Download=async()=>{
-        const dataUrl = await htmlToImage.toPng(canvas.current);
-        console.log(dataUrl);
- 
-  // download image
-//   const link = document.createElement('a');
-//   link.download = "html-to-img.png";
-//   link.href = dataUrl;
-//   link.click();
-       
-        
-    }
-
+   
     return (
         <>
             <div className='container'>
@@ -137,6 +125,7 @@ function Sec() {
 
 
                     </div>
+
                     <div className='col-6'>
                         <div className='Box'>
                         <div className="inputfield">
@@ -148,8 +137,8 @@ function Sec() {
                         <button className='button' onClick={addCircle}>Circle</button>
                         <button className='button' onClick={polygon}>Polygon</button>
                         <button className='button' onClick={Triangle}>Triangle</button>
-                        <button className='button' onClick={Download} >Download</button>
                         <a href={downloadLink} download={downloadName} onClick={convertToImg}>Print As Image</a>
+
                         </div>
                         </div>
 

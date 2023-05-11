@@ -2,7 +2,6 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 import FirstPage from "./Component/FirstPage";
-import SecondPage from "./Component/SecondPage";
 import Sec from "./Component/Sec";
 export default function App() {
   return (
