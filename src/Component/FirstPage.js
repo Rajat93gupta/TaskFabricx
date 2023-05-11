@@ -3,7 +3,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
-const FirstPage = ({ value }) => {
+const FirstPage = () => {
+
   const [img, setImg] = useState("");
   const [res, setRes] = useState([]);
   console.log(img);
@@ -12,14 +13,13 @@ const FirstPage = ({ value }) => {
     HandleSearch();
   }, []);
   const HandleSearch = async () => {
-    // if (img === "") {
-    //   alert("please write something");
-    //   // searchRef.current.focus();
-    // } else {
+
+    
     try {
       const response = await axios.get(
-        `https://api.unsplash.com/search/photos?page=1&query=${img}&client_id=HUBRWInlxtMY5DAdLMX829e1lsrdEFJVFZLv6Uwl8pw`
+        `https://api.unsplash.com/search/photos?page=1&query=${img}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
+      console.log("clicked");
       console.log(response.data.results);
       setRes(response.data.results);
     } catch (error) {
@@ -27,6 +27,7 @@ const FirstPage = ({ value }) => {
       // }
     }
   };
+  console.log(res);
   const HandleAddCaption = (value) => {
     // alert("hi");
     naviagte("/secondPage", { state: { value: value } });
@@ -34,17 +35,25 @@ const FirstPage = ({ value }) => {
   };
   return (
     <>
-      <h1>Search Page</h1>
+      <h1 className="textcenter">Randome Image Generator</h1>
+      <hr/>
       <div className="container">
-        <div className="Upper">
-          <div className="header">
-            <p>Name:Rajat Kuamr</p>
-            <p>Email:rajatkumr3991@gmail.com</p>
+        <div className="row">
+          <div className="col-12">
+            <div className="header">
+              <p>Name:Rajat Kuamr</p>
+              <p>Email:rajatkumr3991@gmail.com</p>
+            </div>
+
           </div>
           <hr />
-          <div className="ItemPage">
-            <div className="input">
+
+        </div>
+        <div className="row">
+          <div className="col-12">
+          <div className="input">
               <input
+              
                 type="text"
                 value={img}
                 onChange={(e) => setImg(e.target.value)}
@@ -52,29 +61,39 @@ const FirstPage = ({ value }) => {
               />
               <button onClick={HandleSearch}>Search</button>
             </div>
+
           </div>
 
-          <div className="Result">
+        </div>
+        <hr/>
+        
+
+
+         
+
+          <div className="row">
             {res?.map((value, index) => {
               return (
                 <div key={index}>
-                  <div className="main">
-                    <div className="Image">
+                  
+                    <div className="col-3">
+                      <div className="innerItem">
                       <img src={value.urls.thumb} alt="unsplash" />
-                      {/* <Link to="/secondpage"> */}
-                      <button onClick={() => HandleAddCaption(value)}>
-                        {" "}
-                        Add Caption
-                      </button>
-                      {/* </Link> */}
+                    
+                    <button className="button" onClick={() => HandleAddCaption(value)}>
+                      {" "}
+                      Add Caption
+                    </button>
+                        </div>
+                     
                     </div>
                   </div>
-                </div>
+                
               );
             })}
           </div>
         </div>
-      </div>
+     
     </>
   );
 };
